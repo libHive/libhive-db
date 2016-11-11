@@ -1,0 +1,90 @@
+[
+  {
+    "TableName": "packageInformation2",
+    "AttributeDefinitions": [
+      { "AttributeName": "packageName", "AttributeType": "S" }
+    ],
+    "KeySchema": [
+      { "AttributeName": "packageName", "KeyType": "HASH" }
+    ],
+    "ProvisionedThroughput": {
+      "ReadCapacityUnits": 1,
+      "WriteCapacityUnits": 1
+    }
+  },
+  {
+    "TableName": "lastProcessedValues2",
+    "AttributeDefinitions": [
+      { "AttributeName": "providerName", "AttributeType": "S" }
+    ],
+    "KeySchema": [
+      { "AttributeName": "providerName", "KeyType": "HASH" }
+    ],
+    "ProvisionedThroughput": {
+      "ReadCapacityUnits": 1,
+      "WriteCapacityUnits": 1
+    }
+  },
+  {
+    "TableName": "codeExamples",
+    "AttributeDefinitions": [
+      { "AttributeName": "codeExampleKey", "AttributeType": "S" },
+      { "AttributeName": "usageTypeKey", "AttributeType": "S" },
+      { "AttributeName": "usageScore", "AttributeType": "N" }
+    ],
+    "KeySchema": [
+      { "AttributeName": "codeExampleKey", "KeyType": "HASH" }
+    ],
+    "GlobalSecondaryIndexes": [
+      {
+        "IndexName": "codeExamplesByTypeAndScore",
+        "KeySchema": [
+          { "AttributeName": "usageTypeKey", "KeyType": "HASH" },
+          { "AttributeName": "usageScore", "KeyType": "RANGE" }
+        ],
+        "Projection": {
+          "ProjectionType": "ALL"
+        },
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 1,
+          "WriteCapacityUnits": 1
+        }
+      }
+    ],
+    "ProvisionedThroughput": {
+      "ReadCapacityUnits": 1,
+      "WriteCapacityUnits": 1
+    }
+  },
+  {
+    "TableName": "usageTypes",
+    "AttributeDefinitions": [
+      { "AttributeName": "usedPackageKey", "AttributeType": "S" },
+      { "AttributeName": "usageTypeKey", "AttributeType": "S" },
+      { "AttributeName": "examplesCount", "AttributeType": "N" }
+    ],
+    "KeySchema" : [
+      { "AttributeName": "usageTypeKey", "KeyType": "HASH" }
+    ],
+    "GlobalSecondaryIndexes": [
+      {
+        "IndexName": "usageTypesByUsedPackageAndCount",
+        "KeySchema": [
+          { "AttributeName": "usedPackageKey", "KeyType": "HASH" },
+          { "AttributeName": "examplesCount", "KeyType": "RANGE" }
+        ],
+        "Projection": {
+          "ProjectionType": "ALL"
+        },
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 1,
+          "WriteCapacityUnits": 1
+        }
+      }
+    ],
+    "ProvisionedThroughput": {
+      "ReadCapacityUnits": 1,
+      "WriteCapacityUnits": 1
+    }
+  }
+]
