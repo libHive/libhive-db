@@ -25,6 +25,7 @@
       "WriteCapacityUnits": 1
     }
   },
+
   {
     "TableName": "codeExamples",
     "AttributeDefinitions": [
@@ -56,6 +57,7 @@
       "WriteCapacityUnits": 1
     }
   },
+
   {
     "TableName": "usageTypes",
     "AttributeDefinitions": [

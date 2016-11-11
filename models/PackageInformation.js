@@ -23,7 +23,7 @@ class PackageInformation {
 
   save(info) {
   // TODO : validate
-    info.packageName = info.provider + "-" + info.name;
+    info.packageName = info.provider + '-' + info.name;
 
     info = deleteAllEmpties(info);
 
@@ -41,7 +41,7 @@ class PackageInformation {
   get(provider, packageName) {
     return this.dbClient.getItem({
       TableName: TABLE_NAME,
-      Key: { packageName: provider + "-" + packageName }
+      Key: { packageName: provider + '-' + packageName }
     });
   }
 

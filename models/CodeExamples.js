@@ -1,9 +1,11 @@
 'use strict';
+const UsageType = require('./UsageType');
 const TABLE_NAME = 'codeExamples';
 
 class CodeExamples {
   constructor(dbClient) {
     this.dbClient = dbClient;
+    this.usageType = new UsageType(dbClient);
     this.save = this.save.bind(this);
   }
 
@@ -14,12 +16,10 @@ class CodeExamples {
       Item: codeExample
     })
     .then(res => {
-      return res.oldItem ? res : this.dbClient.updateItem({
-        TableName: 'usageTypes',
-        Key: { usageTypeKey: codeExample.usageTypeKey },
-        ExpressionAttributeValues: { ':usedPackageKey': codeExample.usedPackageKey, ':zero': 0, ':one': 1 },
-        UpdateExpression: 'SET examplesCount = if_not_exists(examplesCount, :zero) + :one, usagePackageKey = :usedPackageKey'
-      }).then(() => res); // return res anyway
+      // TODO: Aggregation should really be a dynamo db trigger - so deletes are also handled
+      return res.oldItem ?
+        res :
+        this.usageType.add(codeExample).then(() => res); // return res anyway
     })
     .catch(err => {
       console.error('Error saving usage example');
