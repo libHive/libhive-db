@@ -28,16 +28,16 @@ class CodeExamples {
     });
   }
 
-  // get(providerName) {
-  //   console.log('Getting CodeExamples', providerName);
-
-  //   return this.dbClient.getItem({
-  //       TableName: TABLE_NAME,
-  //       Key: { providerName }
-  //     })
-  //     .get('Item')
-  //     .get('updated');
-  // }
+  getByUsageType(usageTypeKey) {
+    return this.dbClient.query({
+      TableName: TABLE_NAME,
+      IndexName: 'codeExamplesByTypeAndScore',
+      KeyConditions: this.dbClient.docClient.Condition('usageTypeKey', 'EQ', usageTypeKey),
+      ScanIndexForward: false, // start with higher scores
+      Limit: 25
+    })
+    .then(res => res.Items);
+  }
 
 }
 
