@@ -28,15 +28,22 @@ class CodeExamples {
     });
   }
 
-  getByUsageType(usageTypeKey) {
-    return this.dbClient.query({
+  getByUsageType(usageTypeKey, startKey) {
+    const params = {
       TableName: TABLE_NAME,
       IndexName: 'codeExamplesByTypeAndScore',
-      KeyConditions: this.dbClient.docClient.Condition('usageTypeKey', 'EQ', usageTypeKey),
+      KeyConditions: this.dbClient.docClient.Condition('usageTypeKey', 'EQ', usageTypeKey),      
       ScanIndexForward: false, // start with higher scores
-      Limit: 25
-    })
-    .then(res => res.Items);
+      Limit: 15      
+    };
+
+    if (startKey) params.ExclusiveStartKey = startKey;
+
+    return this.dbClient.query(params)
+    .then(res => ({
+      items: res.Items,
+      lastKey: res.LastEvaluatedKey
+    }));
   }
 
 }
