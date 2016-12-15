@@ -1,4 +1,6 @@
-var dynamodb = require('../dbClient').db;
+'use strict';
+require('dotenv').config();
+var dynamodb = require('../dbClient').docClient;
 var tables = require('./tablesDefinition.json');
 
 tables

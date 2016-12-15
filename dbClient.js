@@ -5,10 +5,9 @@ const Q = require('q');
 const _ = require('lodash');
 
 AWS.config.update({
-  'region': 'eu-west-1'
-  // ,"endpoint": "http://localhost:8008" // for local development !
+  region: process.env.AWS_REGION,
+  endpoint: process.env.LOCAL_DYNAMO
 });
-
 var awsClient = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 var docClient = new DOC.DynamoDB(awsClient);
 
@@ -31,7 +30,6 @@ let dbClient = {
   putItem,
   updateItem: promisize('updateItem'),
   query: promisize('query'),
-
   docClient
 };
 

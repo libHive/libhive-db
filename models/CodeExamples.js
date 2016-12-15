@@ -28,13 +28,13 @@ class CodeExamples {
     });
   }
 
-  getByUsageType(usageTypeKey, startKey) {
+  getByUsageType(usageTypeKey, startKey, limit) {
     const params = {
       TableName: TABLE_NAME,
       IndexName: 'codeExamplesByTypeAndScore',
       KeyConditions: this.dbClient.docClient.Condition('usageTypeKey', 'EQ', usageTypeKey),      
       ScanIndexForward: false, // start with higher scores
-      Limit: 15      
+      Limit: limit || 10      
     };
 
     if (startKey) params.ExclusiveStartKey = startKey;
