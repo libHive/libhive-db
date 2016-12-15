@@ -12,6 +12,7 @@
       "WriteCapacityUnits": 1
     }
   },
+
   {
     "TableName": "lastProcessedValues2",
     "AttributeDefinitions": [
@@ -83,6 +84,20 @@
           "WriteCapacityUnits": 1
         }
       }
+    ],
+    "ProvisionedThroughput": {
+      "ReadCapacityUnits": 1,
+      "WriteCapacityUnits": 1
+    }
+  },
+
+  {
+    "TableName": "sourceFiles",
+    "AttributeDefinitions": [
+      { "AttributeName": "fileFullName", "AttributeType": "S" }
+    ],
+    "KeySchema" : [
+      { "AttributeName": "fileFullName", "KeyType": "HASH" }
     ],
     "ProvisionedThroughput": {
       "ReadCapacityUnits": 1,
