@@ -30,7 +30,10 @@ class SourceFiles {
       Key: { fileFullName }
     })
     .then(res => {
-      console.log(res);
+      return {
+        fileFullName: res.Item.fileFullName,
+        fileContents: zlib.gunzipSync(res.Item.fileContents)
+      }
     });
   }
 }
