@@ -9,8 +9,6 @@ class SourceFiles {
   }
 
   add(fileFullName, fileContents, metadata) {
-    console.log('adding source file');
-
     const item = {
       fileFullName,
       fileContents: zlib.gzipSync(fileContents)

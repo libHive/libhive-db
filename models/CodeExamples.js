@@ -10,7 +10,6 @@ class CodeExamples {
   }
 
   save(codeExample) {
-    console.log('saving code example');
     return this.dbClient.putItem({
       TableName: TABLE_NAME,
       Item: codeExample

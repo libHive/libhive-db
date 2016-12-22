@@ -2,9 +2,8 @@
 require('dotenv').config();
 var libDb = require('../libhive-db');
 
-let startOfTime = new Date(0, 0, 0);
 let twoDaysAgo = new Date();
-twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+twoDaysAgo.setFullYear(2013);
 
 libDb
   .lastProcessedValues.save('npm', twoDaysAgo.toISOString())

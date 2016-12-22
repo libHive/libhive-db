@@ -8,7 +8,6 @@ class UsageType {
   }
 
   add(codeExample) {
-    console.log('adding usage type');
     return this.dbClient.updateItem({
       TableName: 'usageTypes',
       Key: { usageTypeKey: codeExample.usageTypeKey },
