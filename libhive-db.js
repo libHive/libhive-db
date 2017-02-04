@@ -12,5 +12,6 @@ module.exports = {
   packageInformation: new PackageInformation(dbClient),
   codeExamples: new CodeExamples(dbClient),
   usageType: new UsageType(dbClient),
-  sourceFiles: new SourceFiles(dbClient)
+  sourceFiles: new SourceFiles(dbClient),
+  dbClient
 };

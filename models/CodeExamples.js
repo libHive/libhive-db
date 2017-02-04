@@ -31,9 +31,9 @@ class CodeExamples {
     const params = {
       TableName: TABLE_NAME,
       IndexName: 'codeExamplesByTypeAndScore',
-      KeyConditions: this.dbClient.docClient.Condition('usageTypeKey', 'EQ', usageTypeKey),      
+      KeyConditions: this.dbClient.docClient.Condition('usageTypeKey', 'EQ', usageTypeKey),
       ScanIndexForward: false, // start with higher scores
-      Limit: limit || 10      
+      Limit: limit || 10
     };
 
     if (startKey) params.ExclusiveStartKey = startKey;
